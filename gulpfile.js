@@ -14,14 +14,14 @@ const styles = () => {
 }
 
 const scripts = () => {
-    return src('./frontend/src/scripts/**/*.js')
+    return src('./frontend/src/scripts/*.js')
     .pipe(minifyJs())
     .pipe(dest('./frontend/dist/scripts/'))
 }
 
 const watchTask = () => {
     watch('./frontend/src/styles/**/*.scss', styles)
-    watch('./frontend/src/scripts/**/*.js', scripts)
+    watch('./frontend/src/scripts/*.js', scripts)
 }
 
 exports.default = series (styles, scripts, watchTask);
