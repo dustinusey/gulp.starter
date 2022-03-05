@@ -1,0 +1,81 @@
+@mixin flex($direction, $wrapping, $justification, $alignment) {
+  @content;
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrapping;
+  justify-content: $justification;
+  align-items: $alignment;
+}
+
+@mixin centerFlex() {
+  @content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin absoluteCenter($position: null) {
+  @content;
+  position: absolute;
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin responsive($min: null, $max: null, $gap: null) {
+  @content;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax($min, $max));
+  gap: $gap;
+}
+
+@mixin size($height, $width) {
+  @content;
+  height: $height;
+  width: $width;
+}
+
+@mixin simpleSize($size) {
+  @content;
+  height: $size;
+  width: $size;
+}
+
+@mixin radius($radius) {
+  @content;
+  border-radius: $radius;
+}
+
+@mixin bg($color) {
+  @content;
+  background-color: $color;
+}
+
+@mixin textOverflow($lines) {
+  @content;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+}
+
+@mixin contentWrapper($max-width) {
+  @content;
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+@mixin break($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "No breakpoint matchin: `#{$breakpoint}`."
+        + "Available breakpoints are #{map-keys($breakpoints),}.";
+  }
+}
